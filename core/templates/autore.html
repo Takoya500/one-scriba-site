@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main>
+  <section class="py-20 text-center">
+    <div class="max-w-3xl mx-auto px-6 reveal">
+      <header class="mb-8">
+        <h1 class="font-playfair text-4xl md:text-5xl font-semibold mb-6">Author Profile</h1>
+        <div class="text-sm text-gray-500 mb-4">Writer</div>
+      </header>
+    </div>
+  </section>
+
+  <div class="max-w-3xl mx-auto px-6">
+
+  <section class="prose text-gray-600 reveal">
+    <p>Short biography: This is a sample author profile used to demonstrate how the page will look. The author has experience in creative writing, working across fiction and screenwriting.</p>
+    <p>They have published several works and participated in workshops and events dedicated to writing.</p>
+  </section>
+
+  <section class="mt-8 reveal">
+    <h3 class="text-2xl font-playfair font-semibold mb-4">Main works</h3>
+    <ul class="list-disc list-inside text-gray-600 space-y-3">
+      <li>
+        <strong>Title 1</strong> — Short description of work 1.
+      </li>
+      <li>
+        <strong>Title 2</strong> — Short description of work 2.
+      </li>
+      <li>
+        <strong>Title 3</strong> — Short description of work 3.
+      </li>
+    </ul>
+  </section>
+
+  <section class="mt-8 reveal">
+    <h3 class="text-2xl font-playfair font-semibold mb-4">Contacts</h3>
+    <p class="text-gray-600">For information and requests, please contact the author using the placeholder contact form.</p>
+    <a href="#" class="inline-block mt-4 px-6 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition">Contact</a>
+  </section>
+  </div>
+</main>
+
+{% endblock %}

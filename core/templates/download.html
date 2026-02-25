@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="py-20 text-center">
+  <div class="max-w-3xl mx-auto px-6 reveal">
+    <h1 class="font-playfair text-4xl md:text-5xl font-semibold mb-6">Download One Scriba</h1>
+    <p class="text-2xl text-gray-600">Get the latest version for your operating system.</p>
+  </div>
+</section>
+
+<section class="max-w-5xl mx-auto px-6 pb-28 space-y-16">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+    <div class="reveal flex flex-col items-center text-center space-y-12">
+      <a id="windows-download" href="https://github.com/Takoya500/one-scriba/releases/latest/download/OneScriba-Setup.exe" class="px-8 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition w-full sm:w-auto text-center min-w-[220px]">
+        Download for Windows
+      </a>
+      <div class="max-w-sm text-gray-600 text-xl leading-relaxed space-y-4">
+        <h2 id="windows" class="font-playfair text-2xl font-semibold text-[#3E4CFF]">How to install on Windows</h2>
+        <p>After downloading, Windows might display a SmartScreen alert.</p>
+        <p>Click "More info" and then "Run anyway".</p>
+        <p>Follow the installer as you normally would.</p>
+      </div>
+    </div>
+
+    <div class="reveal flex flex-col items-center text-center space-y-12">
+      <a id="macos-download" href="https://github.com/Takoya500/one-scriba/releases/latest/download/OneScriba-macOS.dmg" class="px-8 py-3 border border-[#3E4CFF] text-[#3E4CFF] rounded-lg hover:bg-[#3E4CFF] hover:text-white transition w-full sm:w-auto text-center min-w-[220px]">
+        Download for macOS
+      </a>
+      <div class="max-w-sm text-gray-600 text-xl leading-relaxed space-y-4">
+        <h2 id="macos" class="font-playfair text-2xl font-semibold text-[#3E4CFF]">How to install on macOS</h2>
+        <p>Open the .dmg file.</p>
+        <p>Drag One Scriba.app into the Applications folder.</p>
+        <p>On first launch, macOS might block the app because the developer is not yet verified.</p>
+        <p>Go to System Settings → Privacy &amp; Security.</p>
+        <p>Click "Open Anyway" next to the One Scriba alert.</p>
+        <p>Select "Open" to finish.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center reveal mt-24">
+    <a href="{% url 'home' %}" class="inline-block px-6 py-3 border border-[#3E4CFF] text-[#3E4CFF] rounded-lg hover:bg-[#3E4CFF] hover:text-white transition">
+      Back to Home
+    </a>
+  </div>
+</section>
+
+{% endblock %}

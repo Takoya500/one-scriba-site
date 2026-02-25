@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="min-h-[60vh] flex items-center justify-center">
+  <div class="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-md text-center">
+    <h1 class="text-3xl font-playfair font-semibold mb-4">Welcome {{ user.email }}</h1>
+
+    {% if subscription_status == 'active' %}
+      <p class="text-gray-600 mb-6">Your subscription is active.</p>
+      <a href="/static/installers/OneScriba-Installer.exe" class="inline-block px-6 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition mb-4">Download the app</a>
+      <div class="mt-6 text-left">
+        <h3 class="font-playfair text-xl mb-2">Subscriber resources</h3>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li>User manual</li>
+          <li>Templates and bonus material</li>
+          <li>Early access to new features</li>
+        </ul>
+      </div>
+    {% else %}
+      <p class="text-gray-600 mb-6">Subscription inactive</p>
+      <a href="{% url 'pricing' %}" class="inline-block px-6 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition">Subscribe now</a>
+    {% endif %}
+
+    <div class="mt-6 text-sm text-gray-500">
+      <a href="{% url 'logout' %}" class="text-[#3E4CFF]">Log out</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

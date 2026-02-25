@@ -1,0 +1,140 @@
+🌍 ONE SCRIBA — SITO WEB UFFICIALE (v1.0, ottobre 2025)
+📑 STRUTTURA ATTUALE DEL PROGETTO
+
+Tecnologia base: Django 5.2 + TailwindCSS 4
+Linguaggio server: Python 3.13
+Hosting (sviluppo): locale (127.0.0.1:8000)
+Obiettivo: sito ufficiale per presentare il software desktop One Scriba — un’app professionale per la scrittura creativa.
+
+✅ Sezioni già implementate
+
+Home: hero section con claim “Scrivi. Crea. Pubblica.”
+
+traduzione automatica IT/EN tramite Django i18n
+
+animazioni fade-in on scroll
+
+sezione “Cos’è One Scriba” responsive a due colonne
+
+stile coerente con l’identità visiva (sfondo crema, tipografia elegante, colore primario blu)
+
+Base layout: intestazione con navigazione, footer con copyright, toggle IT/EN.
+
+Static files: gestiti da Django (static/css, static/js)
+
+input.css → Tailwind + animazioni custom
+
+scroll-animations.js → fade-in progressivo su viewport
+
+Localizzazione:
+
+django.po e django.mo correttamente compilati
+
+interfaccia bilingue (Italiano / Inglese)
+
+🧠 ROADMAP DI SVILUPPO (DA DARE A COPILOT)
+1️⃣ Frontend
+
+Migliorare la sezione Hero con microtransizioni e delay a cascata.
+
+Aggiungere una sezione “Caratteristiche principali” sotto “Cos’è One Scriba”.
+
+Due colonne, con icone e descrizioni brevi, visivamente coerenti.
+
+Integrare una sezione “Scarica l’app” con pulsanti per Windows e macOS.
+
+Ottimizzare la responsività mobile.
+
+2️⃣ Contenuti dinamici
+
+Creare pagine: /magazine/, /autori/, /eventi/, /pricing/.
+
+Ogni pagina eredita base.html e mantiene lo stesso schema visivo.
+
+Preparare template Django base per articoli e vetrina autori.
+
+3️⃣ Backend (fase successiva)
+
+Integrazione con LemonSqueezy API per la gestione licenze.
+
+Login utente (futuro) con Django Auth o Supabase Auth.
+
+Dashboard personale con stato licenza, download app, articoli riservati.
+
+4️⃣ SEO e performance
+
+Aggiungere tag meta dinamici per titolo e descrizione.
+
+Ottimizzare output CSS e JS per la versione di produzione.
+
+💳 PAGAMENTI (FASE SUCCESSIVA)
+
+Gestione checkout tramite LemonSqueezy Overlay / Redirect.
+
+Abbonamento mensile o annuale.
+
+Licenze collegate automaticamente all’utente autenticato.
+
+🧩 COMMUNITY E CONTENUTI
+
+Magazine: articoli periodici sulla scrittura creativa (HTML statici o modello Django).
+
+Vetrina autori: profili e opere pubblicati dagli utenti con licenza attiva.
+
+Festival: concorsi letterari e sceneggiature con premi e iscrizioni via LemonSqueezy.
+
+🧱 TECNOLOGIE (STATO ATTUALE)
+Area	Tecnologia	Note
+App desktop	Electron.js + Node.js	già in sviluppo
+Sito ufficiale	Django 5.2 + TailwindCSS 4	attuale
+Lingue	i18n (Django gettext)	IT + EN
+Animazioni	IntersectionObserver + CSS transitions	implementato
+Database	SQLite (dev) → PostgreSQL (prod)	
+Hosting futuro	Render / Railway	compatibile
+Pagamenti	LemonSqueezy API	pianificato
+Email / Newsletter	Beehiiv o Mailerlite	pianificato
+✨ LINEE GUIDA VISIVE
+
+Font titoli: Playfair Display
+
+Font testo: Inter
+
+Colore primario: #3E4CFF
+
+Sfondo: #FAF9F6
+
+Layout centrato, spazioso, minimalista.
+
+Animazioni leggere (fade, slide up)
+
+Nessun effetto vistoso: focus su chiarezza e armonia.
+
+🧩 NOTE PER COPILOT
+
+Quando lavori su nuove sezioni:
+
+Mantieni lo stesso schema visivo e le stesse classi Tailwind.
+
+Tutte le nuove sezioni devono poter ricevere traduzioni via {% trans %}.
+
+Evita di introdurre framework JS esterni (React, Vue, ecc.).
+
+Tutti i file statici vanno in static/css o static/js.
+
+Tutti i nuovi template ereditano da base.html.
+
+Le animazioni devono attivarsi tramite .reveal e .animate-visible.
+
+📦 File principali
+
+/core/templates/base.html
+
+/core/templates/home.html
+
+/static/css/input.css
+
+/static/js/scroll-animations.js
+
+/locale/it/LC_MESSAGES/django.po
+
+/locale/en/LC_MESSAGES/django.po

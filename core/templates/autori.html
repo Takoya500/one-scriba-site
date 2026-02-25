@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- COMING SOON BANNER -->
+<section class="bg-white border border-[#E5E5E7] rounded-xl shadow-sm max-w-4xl mx-auto mt-10 mb-12 px-6 py-8 text-center text-gray-700 reveal">
+  <h2 class="font-playfair text-2xl font-semibold mb-3">One Scriba Authors — Coming Soon</h2>
+  <p class="text-lg leading-relaxed">
+    We are currently curating the first group of verified authors.<br>
+    A selection of sample profiles is displayed below to illustrate how the platform will work.<br>
+    Sign up to One Scriba to be notified when author submissions open.
+  </p>
+</section>
+
+<!-- HERO -->
+<section class="py-20 text-center">
+  <div class="max-w-3xl mx-auto px-6 reveal">
+    <h1 class="font-playfair text-4xl md:text-5xl font-semibold mb-6">The One Scriba Authors</h1>
+    <p class="text-2xl text-gray-600 mb-8">Every author has a unique voice. Meet the writers, creators, and storytellers crafting with One Scriba.</p>
+  </div>
+</section>
+
+<!-- FEATURED AUTHORS BAR -->
+<section class="py-10 px-6">
+  <h2 class="text-2xl font-semibold font-playfair mb-6 text-center reveal text">Featured authors</h2>
+
+  <div class="max-w-full mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6">
+      {% comment %} 6 featured authors laid out across the page; no horizontal scroll {% endcomment %}
+      <div class="bg-white rounded-2xl shadow-md p-6 transition reveal text-center">
+        <div class="font-playfair text-lg font-semibold">Lucas Bennett <span class="ml-2 text-[#3E4CFF] text-xs uppercase tracking-wide">Featured</span></div>
+        <div class="text-sm text-gray-500">Writer</div>
+        <div class="text-gray-600 text-lg mt-2">Author of novels and short stories.</div>
+        <a href="{% url 'autore' 1 %}" class="mt-4 inline-block text-sm text-[#3E4CFF]">Learn more</a>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-md p-6 transition reveal text-center">
+        <div class="font-playfair text-lg font-semibold">Maya Ross <span class="ml-2 text-[#3E4CFF] text-xs uppercase tracking-wide">Featured</span></div>
+        <div class="text-sm text-gray-500">Screenwriter</div>
+        <div class="text-gray-600 text-lg mt-2">Specialist in cinematic storytelling.</div>
+        <a href="{% url 'autore' 2 %}" class="mt-4 inline-block text-sm text-[#3E4CFF]">Learn more</a>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-md p-6 transition reveal text-center">
+        <div class="font-playfair text-lg font-semibold">Sophia Clarke <span class="ml-2 text-[#3E4CFF] text-xs uppercase tracking-wide">Featured</span></div>
+        <div class="text-sm text-gray-500">Playwright</div>
+        <div class="text-gray-600 text-lg mt-2">Playwright and theatre director.</div>
+        <a href="{% url 'autore' 3 %}" class="mt-4 inline-block text-sm text-[#3E4CFF]">Learn more</a>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-md p-6 transition reveal text-center">
+        <div class="font-playfair text-lg font-semibold">Alexander Reid</div>
+        <div class="text-sm text-gray-500">Writer</div>
+        <div class="text-gray-600 text-lg mt-2">Writes historical fiction.</div>
+        <a href="{% url 'autore' 4 %}" class="mt-4 inline-block text-sm text-[#3E4CFF]">Learn more</a>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-md p-6 transition reveal text-center">
+        <div class="font-playfair text-lg font-semibold">Beatrice Gallagher</div>
+        <div class="text-sm text-gray-500">Writer</div>
+        <div class="text-gray-600 text-lg mt-2">Contemporary short story author.</div>
+        <a href="{% url 'autore' 5 %}" class="mt-4 inline-block text-sm text-[#3E4CFF]">Learn more</a>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-md p-6 transition reveal text-center">
+        <div class="font-playfair text-lg font-semibold">Caleb Martin</div>
+        <div class="text-sm text-gray-500">Screenwriter</div>
+        <div class="text-gray-600 text-lg mt-2">Writes for TV series and short films.</div>
+        <a href="{% url 'autore' 6 %}" class="mt-4 inline-block text-sm text-[#3E4CFF]">Learn more</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH & FILTERS -->
+<section id="authors-filters-bar" class="max-w-3xl mx-auto my-10 reveal">
+  {# removed quick filter buttons: filtering is done via the select dropdown #}
+
+  <form id="authors-search-form" class="flex flex-col md:flex-row gap-4 justify-center items-center">
+    <input id="authors-search-input" type="search" placeholder="Search by name or bio" class="w-full md:w-1/2 px-4 py-3 border rounded-lg" />
+    <select id="authors-category-select" class="w-full md:w-1/4 px-4 py-3 border rounded-lg">
+      <option value="All">All</option>
+      <option value="Writers">Writers</option>
+      <option value="Screenwriters">Screenwriters</option>
+      <option value="Playwrights">Playwrights</option>
+    </select>
+    <button id="authors-search-button" type="submit" class="px-6 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition">Search</button>
+  </form>
+</section>
+
+<!-- AUTHORS GRID -->
+<section id="authors-grid" class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto py-16 px-6">
+  <!-- 9 authors grid -->
+  <div class="author-card bg-white rounded-2xl shadow-md p-6 transition reveal text-center">
+    <h3 class="author-name font-playfair text-xl font-semibold">Amelia Rhodes</h3>
+    <div class="author-role text-gray-500 text-sm">Writer</div>
+    <p class="author-bio text-gray-600 text-base leading-relaxed mt-2">Tells intimate, character-driven stories.</p>
+    <a href="{% url 'autore' 11 %}" class="inline-block mt-4 text-[#3E4CFF]">Learn more</a>
+  </div>
+
+  <div class="author-card bg-white rounded-2xl shadow-md p-6 transition reveal text-center">
+    <h3 class="author-name font-playfair text-xl font-semibold">Brandon Carter</h3>
+    <div class="author-role text-gray-500 text-sm">Screenwriter</div>
+    <p class="author-bio text-gray-600 text-base leading-relaxed mt-2">Creates independent short films and scripts.</p>
+    <a href="{% url 'autore' 12 %}" class="inline-block mt-4 text-[#3E4CFF]">Learn more</a>
+  </div>
+
+  <div class="author-card bg-white rounded-2xl shadow-md p-6 transition reveal text-center">
+    <h3 class="author-name font-playfair text-xl font-semibold">Chloe Morgan</h3>
+    <div class="author-role text-gray-500 text-sm">Playwright</div>
+    <p class="author-bio text-gray-600 text-base leading-relaxed mt-2">Dramaturg with multiple productions on stage.</p>
+    <a href="{% url 'autore' 13 %}" class="inline-block mt-4 text-[#3E4CFF]">Learn more</a>
+  </div>
+
+  <div id="authors-no-results" class="col-span-1 md:col-span-3 text-center text-gray-600 hidden">No authors found.</div>
+</section>
+
+<!-- PAGINATION -->
+<script>
+(function(){
+  // Client-side authors search & category filter (isolated, no globals)
+  const qs = (k)=> new URLSearchParams(window.location.search).get(k) || '';
+  const authorsGrid = document.getElementById('authors-grid');
+  const searchInput = document.getElementById('authors-search-input');
+  const categorySelect = document.getElementById('authors-category-select');
+  const noResults = document.getElementById('authors-no-results');
+  if(!authorsGrid || !searchInput || !categorySelect) return;
+
+  // Map UI category values to role strings found in cards
+  function mapCategoryToRole(cat){
+    if(!cat) return 'all';
+    const c = cat.toString().toLowerCase();
+    if(c.indexOf('screen') !== -1) return 'screenwriter';
+    if(c.indexOf('playwr') !== -1) return 'playwright';
+    if(c.indexOf('writer') !== -1) return 'writer';
+    return c; // 'all' or other
+  }
+
+  // Normalize role text found in cards to the same canonical keys used by mapCategoryToRole
+  function normalizeRole(roleText){
+    const r = normalize(roleText);
+    if(r.indexOf('screen') !== -1) return 'screenwriter';
+    if(r.indexOf('playwr') !== -1) return 'playwright';
+    if(r.indexOf('writer') !== -1) return 'writer';
+    return r;
+  }
+
+  function normalize(s){ return (s||'').toString().toLowerCase(); }
+
+  function getCards(){
+    return Array.from(authorsGrid.querySelectorAll('.author-card'));
+  }
+
+  function showElement(el){ el.style.display = ''; }
+  function hideElement(el){ el.style.display = 'none'; }
+
+  function filterOnce(){
+    const q = normalize(searchInput.value).trim();
+    const sel = categorySelect.value || 'All';
+    const roleNeeded = mapCategoryToRole(sel);
+    let shown = 0;
+    getCards().forEach(card => {
+      const name = normalize(card.querySelector('.author-name')?.textContent || card.dataset.name);
+      const bio = normalize(card.querySelector('.author-bio')?.textContent || card.dataset.bio);
+      const role = normalize(card.querySelector('.author-role')?.textContent || card.dataset.role);
+      const roleNorm = normalizeRole(role);
+
+      const categoryMatch = (roleNeeded === 'all') || roleNorm === roleNeeded;
+      const queryMatch = !q || name.indexOf(q) !== -1 || bio.indexOf(q) !== -1;
+
+      if(categoryMatch && queryMatch){
+        showElement(card);
+        shown += 1;
+      } else {
+        hideElement(card);
+      }
+    });
+
+    if(noResults){
+      if(shown === 0) noResults.classList.remove('hidden'); else noResults.classList.add('hidden');
+    }
+
+    // no quick buttons to update; select reflects active category
+  }
+
+  function debounce(fn, wait){ let t; return function(...args){ clearTimeout(t); t = setTimeout(()=>fn.apply(this,args), wait); }; }
+  const debouncedFilter = debounce(filterOnce, 200);
+
+  // Initialize from URL params (progressive enhancement)
+  (function initFromUrl(){
+    try{
+      const urlQ = qs('q');
+      const urlCat = qs('category');
+      if(urlQ) searchInput.value = urlQ;
+      if(urlCat) {
+        // try to match select options (use visible labels mapping)
+        const opts = Array.from(categorySelect.options).map(o=>o.value || o.text);
+        // pick the option whose lower-case contains the urlCat lower-case
+        const match = opts.find(o => o.toLowerCase().indexOf(urlCat.toLowerCase()) !== -1);
+        if(match) categorySelect.value = match;
+      }
+    }catch(e){}
+  })();
+
+  // Event handlers
+  searchInput.addEventListener('input', debouncedFilter);
+  categorySelect.addEventListener('change', filterOnce);
+
+  // no quick filter buttons present - filtering is driven by the select and the search input
+
+  // Initial run
+  filterOnce();
+})();
+</script>
+<nav class="flex justify-center items-center gap-3 mt-12">
+  <a href="#" class="px-4 py-2 border rounded-md hover:bg-[#3E4CFF] hover:text-white transition">1</a>
+  <a href="#" class="px-4 py-2 border rounded-md hover:bg-[#3E4CFF] hover:text-white transition">2</a>
+  <a href="#" class="px-4 py-2 border rounded-md hover:bg-[#3E4CFF] hover:text-white transition">3</a>
+  <a href="#" class="px-4 py-2 border rounded-md hover:bg-[#3E4CFF] hover:text-white transition">→</a>
+</nav>
+
+<!-- CTA -->
+<section class="text-center py-20 px-6 bg-[#FAF9F6] reveal">
+  <p class="text-lg text-gray-600 mb-4">Want to be featured on One Scriba? Submit your profile and share your story.</p>
+  <a href="#" class="inline-block px-6 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition">Apply now</a>
+</section>
+
+{% endblock %}

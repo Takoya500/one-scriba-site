@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- MAGAZINE HERO -->
+<section class="py-20 text-center">
+  <div class="max-w-3xl mx-auto px-6 reveal">
+    <h1 class="text-4xl md:text-5xl font-playfair font-semibold mb-4">One Scriba Magazine</h1>
+    <p class="text-2xl text-gray-600 mb-8">Articles, insights, and deep dives from the world of creative writing.</p>
+  </div>
+</section>
+
+<!-- MAGAZINE SEARCH (client-side title search) -->
+<section id="magazine-search-bar" class="max-w-3xl mx-auto my-8 reveal">
+  <form id="magazine-search-form" class="flex flex-col md:flex-row gap-4 justify-center items-center">
+    <input id="magazine-search-input" type="search" placeholder="Search by title" class="w-full md:w-2/3 px-4 py-3 border rounded-lg" />
+    <button id="magazine-search-button" type="button" class="px-6 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition">Search</button>
+  </form>
+</section>
+
+<!-- ARTICLES LIST -->
+<section class="max-w-5xl mx-auto px-6 pb-12">
+
+  <!-- Example real article -->
+  <details class="article-card bg-white rounded-2xl shadow-md p-5 mb-8 transition reveal max-w-6xl mx-auto">
+    <summary class="cursor-pointer">
+      <div class="flex flex-col items-center text-center gap-4">
+        <div>
+          <h3 class="article-title text-2xl font-playfair font-semibold">Writing authentic dialogue</h3>
+          <div class="text-sm text-gray-500">Writing techniques</div>
+        </div>
+        <div class="text-sm text-gray-500">30 October 2025</div>
+      </div>
+    </summary>
+    <div class="mt-4 text-gray-600">
+      <p>Great dialogue blends rhythm, truth, and tension. It always springs from the character and their inner conflict.</p>
+    </div>
+  </details>
+
+  <!-- 8 placeholder articles -->
+  <details class="article-card bg-white rounded-2xl shadow-md p-5 mb-8 transition reveal max-w-6xl mx-auto">
+    <summary class="cursor-pointer">
+      <div class="flex flex-col items-center text-center gap-4">
+        <div>
+          <h3 class="article-title text-2xl font-playfair font-semibold">The craft of revision</h3>
+          <div class="text-sm text-gray-500">Editing</div>
+        </div>
+        <div class="text-sm text-gray-500">15 September 2025</div>
+      </div>
+    </summary>
+    <div class="mt-4 text-gray-600">
+      <p>Quick tips to improve your structure and clarity before you ship your work.</p>
+    </div>
+  </details>
+
+  <details class="article-card bg-white rounded-2xl shadow-md p-5 mb-8 transition reveal max-w-6xl mx-auto">
+    <summary class="cursor-pointer">
+      <div class="flex flex-col items-center text-center gap-4">
+        <div>
+          <h3 class="article-title text-2xl font-playfair font-semibold">Building memorable characters</h3>
+          <div class="text-sm text-gray-500">Character design</div>
+        </div>
+        <div class="text-sm text-gray-500">2 August 2025</div>
+      </div>
+    </summary>
+    <div class="mt-4 text-gray-600">
+      <p>Practical techniques to give depth and consistency to the protagonists driving your stories.</p>
+    </div>
+  </details>
+
+  <details class="article-card bg-white rounded-2xl shadow-md p-5 mb-8 transition reveal max-w-6xl mx-auto">
+    <summary class="cursor-pointer">
+      <div class="flex flex-col items-center text-center gap-4">
+        <div>
+          <h3 class="article-title text-2xl font-playfair font-semibold">Finding your narrative voice</h3>
+          <div class="text-sm text-gray-500">Style</div>
+        </div>
+        <div class="text-sm text-gray-500">21 July 2025</div>
+      </div>
+    </summary>
+    <div class="mt-4 text-gray-600">
+      <p>How to discover and sustain a distinctive voice that speaks directly to your reader.</p>
+    </div>
+  </details>
+
+  <details class="article-card bg-white rounded-2xl shadow-md p-5 mb-8 transition reveal max-w-6xl mx-auto">
+    <summary class="cursor-pointer">
+      <div class="flex flex-col items-center text-center gap-4">
+        <div>
+          <h3 class="article-title text-2xl font-playfair font-semibold">Plot and structure</h3>
+          <div class="text-sm text-gray-500">Story craft</div>
+        </div>
+        <div class="text-sm text-gray-500">10 June 2025</div>
+      </div>
+    </summary>
+    <div class="mt-4 text-gray-600">
+      <p>Simple frameworks that help you build a solid plot without sacrificing surprise.</p>
+    </div>
+  </details>
+
+  <details class="article-card bg-white rounded-2xl shadow-md p-5 mb-8 transition reveal max-w-6xl mx-auto">
+    <summary class="cursor-pointer">
+      <div class="flex flex-col items-center text-center gap-4">
+        <div>
+          <h3 class="article-title text-2xl font-playfair font-semibold">Setting and worldbuilding</h3>
+          <div class="text-sm text-gray-500">Worldbuilding</div>
+        </div>
+        <div class="text-sm text-gray-500">28 May 2025</div>
+      </div>
+    </summary>
+    <div class="mt-4 text-gray-600">
+      <p>Create believable settings that reinforce your narrative and its central conflict.</p>
+    </div>
+  </details>
+
+  <details class="article-card bg-white rounded-2xl shadow-md p-5 mb-8 transition reveal max-w-6xl mx-auto">
+    <summary class="cursor-pointer">
+      <div class="flex flex-col items-center text-center gap-4">
+        <div>
+          <h3 class="article-title text-2xl font-playfair font-semibold">Techniques for a strong opening</h3>
+          <div class="text-sm text-gray-500">Opening lines</div>
+        </div>
+        <div class="text-sm text-gray-500">14 April 2025</div>
+      </div>
+    </summary>
+    <div class="mt-4 text-gray-600">
+      <p>Your opening is a promise to the reader: tips to hook them without giving everything away.</p>
+    </div>
+  </details>
+
+  <details class="article-card bg-white rounded-2xl shadow-md p-5 mb-8 transition reveal max-w-6xl mx-auto">
+    <summary class="cursor-pointer">
+      <div class="flex flex-col items-center text-center gap-4">
+        <div>
+          <h3 class="article-title text-2xl font-playfair font-semibold">Dialogue vs. monologue</h3>
+          <div class="text-sm text-gray-500">Techniques</div>
+        </div>
+        <div class="text-sm text-gray-500">1 March 2025</div>
+      </div>
+    </summary>
+    <div class="mt-4 text-gray-600">
+      <p>When to rely on dialogue and when to hand the stage to the narrator: pros and cons.</p>
+    </div>
+  </details>
+
+  <details class="article-card bg-white rounded-2xl shadow-md p-5 mb-8 transition reveal max-w-6xl mx-auto">
+    <summary class="cursor-pointer">
+      <div class="flex flex-col items-center text-center gap-4">
+        <div>
+          <h3 class="article-title text-2xl font-playfair font-semibold">Rapid editing</h3>
+          <div class="text-sm text-gray-500">Workflow</div>
+        </div>
+        <div class="text-sm text-gray-500">8 February 2025</div>
+      </div>
+    </summary>
+    <div class="mt-4 text-gray-600">
+      <p>A quick checklist to polish your text before publishing.</p>
+    </div>
+  </details>
+
+  <div id="magazine-no-results" class="text-center text-gray-600 hidden">No articles found.</div>
+
+</section>
+
+<!-- PAGINATION -->
+<nav class="flex justify-center items-center gap-3 mt-12">
+  <a href="#" class="px-4 py-2 rounded-md border hover:bg-[#3E4CFF] hover:text-white transition">1</a>
+  <a href="#" class="px-4 py-2 rounded-md border hover:bg-[#3E4CFF] hover:text-white transition">2</a>
+  <a href="#" class="px-4 py-2 rounded-md border hover:bg-[#3E4CFF] hover:text-white transition">3</a>
+  <a href="#" class="px-4 py-2 rounded-md border hover:bg-[#3E4CFF] hover:text-white transition">→</a>
+</nav>
+
+<script>
+(function(){
+  // Magazine client-side title search (isolated, no globals)
+  const magazineGrid = document.querySelectorAll('.article-card');
+  const searchInput = document.getElementById('magazine-search-input');
+  const searchButton = document.getElementById('magazine-search-button');
+  const noResults = document.getElementById('magazine-no-results');
+  if(!searchInput || !searchButton) return;
+
+  function normalize(s){ return (s||'').toString().toLowerCase(); }
+
+  function getCards(){ return Array.from(document.querySelectorAll('.article-card')); }
+
+  function show(el){ el.style.display = ''; }
+  function hide(el){ el.style.display = 'none'; }
+
+  function filterOnce(){
+    const q = normalize(searchInput.value).trim();
+    let shown = 0;
+    getCards().forEach(card => {
+      const titleEl = card.querySelector('.article-title');
+      const title = normalize(titleEl?.textContent || card.dataset.title);
+      const match = !q || title.indexOf(q) !== -1;
+      if(match){ show(card); shown += 1; } else { hide(card); }
+    });
+    if(noResults){ if(shown === 0) noResults.classList.remove('hidden'); else noResults.classList.add('hidden'); }
+  }
+
+  function debounce(fn, wait){ let t; return function(...a){ clearTimeout(t); t = setTimeout(()=>fn.apply(this,a), wait); }; }
+  const debounced = debounce(filterOnce, 200);
+
+  searchInput.addEventListener('input', debounced);
+  searchButton.addEventListener('click', filterOnce);
+
+  // initial run to reflect any prefilled value
+  filterOnce();
+})();
+</script>
+
+{% endblock %}

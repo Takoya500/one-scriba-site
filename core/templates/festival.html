@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- COMING SOON BANNER -->
+<section class="bg-white border border-[#E5E5E7] rounded-xl shadow-sm max-w-4xl mx-auto mt-10 mb-12 px-6 py-8 text-center text-gray-700 reveal">
+  <h2 class="font-playfair text-2xl font-semibold mb-3">One Scriba Festival — Coming Soon</h2>
+  <p class="text-lg leading-relaxed">
+    We are preparing the first edition of the Festival to ensure a professional and competitive experience, with qualified judges and real awards.<br>
+    The official launch will take place once the community is at the ideal stage to support a high-quality event.<br>
+    <span class="font-semibold text-[#3E4CFF]">Sign up to One Scriba to be notified in advance.</span>
+  </p>
+</section>
+
+<!-- HERO SECTION -->
+<section class="py-20 text-center">
+  <div class="max-w-3xl mx-auto px-6 reveal">
+    <h1 class="font-playfair text-4xl md:text-5xl font-semibold mb-6">One Scriba Festival</h1>
+    <p class="text-gray-600 text-2xl leading-relaxed">Every year we celebrate writing in all its forms—fiction, screenwriting, and theatre. Three categories, one mission: shining a light on the authors behind each story.</p>
+  </div>
+</section>
+
+<!-- COS'È ONE SCRIBA FESTIVAL -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-20 max-w-6xl mx-auto px-6">
+  <div class="reveal">
+  <p class="text-gray-600 text-xl leading-relaxed mb-4">One Scriba curates a series of creative writing festivals each year. Every edition focuses on a specific craft—fiction, screenwriting, or theatre—offering cash prizes and visibility to outstanding authors.</p>
+    <p class="text-gray-600 text-xl leading-relaxed">The festival blends readings, workshops, and roundtables with industry professionals, creating a meeting point for writers, editors, and readers.</p>
+  </div>
+
+  <div class="reveal text-gray-700">
+    <h3 class="font-playfair text-2xl font-semibold mb-4 text-[#3E4CFF]">Categories</h3>
+    <ul class="space-y-3 text-left text-xl">
+      <li class="flex items-start gap-3"><span>Short fiction and novels</span></li>
+      <li class="flex items-start gap-3"><span>Screenwriting</span></li>
+      <li class="flex items-start gap-3"><span>Playwriting and dramaturgy</span></li>
+    </ul>
+    <blockquote class="mt-6 italic text-gray-600 text-xl">Stories fill the world; the festival is where they come together.</blockquote>
+  </div>
+</section>
+
+<!-- PREMI E RICONOSCIMENTI -->
+<section class="bg-white rounded-2xl shadow-md p-12 max-w-5xl mx-auto my-20 text-center reveal">
+  <h2 class="font-playfair text-2xl font-semibold mb-4 text">Prizes and recognition</h2>
+  <p class="text-gray-600 text-xl mb-6">Each category awards cash prizes to the top entries. Winners and finalists are featured in the Authors section and highlighted in One Scriba Magazine. Every shortlisted work receives an official mention.</p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
+    <div class="text-left">
+      <div class="font-semibold text-xl">Grand prize</div>
+      <div class="text-gray-600 text-lg">Recognition for the overall winner of each category.</div>
+    </div>
+
+    <div class="text-left">
+      <div class="font-semibold text-xl">Cash awards</div>
+      <div class="text-gray-600 text-lg">Dedicated prizes for the top-ranked entries in every category.</div>
+    </div>
+
+    <div class="text-left">
+      <div class="font-semibold text-xl">Honourable mentions</div>
+      <div class="text-gray-600 text-lg">All finalists receive an official mention and festival badge.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ISCRIZIONI E VANTAGGI PER ABBONATI -->
+<section class="text-center max-w-2xl mx-auto py-20 reveal">
+  <h3 class="font-playfair text-2xl font-semibold mb-4 text">Registration and member perks</h3>
+  <p class="text-gray-600 text-xl mb-6">Participation is open to everyone. Active subscribers enjoy an exclusive discount on entry fees.</p>
+
+  <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+    <div class="bg-white rounded-2xl shadow p-6 w-48">
+      <div class="text-gray-500">Standard fee</div>
+      <div class="text-xl font-semibold">€25</div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow p-6 w-48">
+      <div class="text-gray-500">One Scriba subscribers</div>
+      <div class="text-xl text-[#3E4CFF] font-semibold">€15</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROSSIMI FESTIVAL -->
+<section class="bg-[#FAF9F6] text-center py-16 text-gray-600 reveal">
+  <h3 class="font-playfair text-xl font-semibold">Upcoming festivals</h3>
+  <p class="max-w-2xl mx-auto mt-4 text-xl">New One Scriba festivals are announced throughout the year. Follow us for dates, guidelines, and how to take part.</p>
+  <a href="#" class="inline-block mt-6 px-6 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition">Stay informed</a>
+</section>
+
+<!-- CTA FINALE -->
+<section class="text-center py-20 px-6 bg-white reveal">
+  <p class="text-gray-600 text-xl mb-6">The One Scriba Festival is more than a contest: it is where stories meet their audience and authors step into the spotlight.</p>
+  <a href="{% url 'pricing' %}" class="inline-block px-6 py-3 border border-[#3E4CFF] text-[#3E4CFF] rounded-lg hover:bg-[#3E4CFF] hover:text-white transition">Join the community</a>
+</section>
+
+{% endblock %}

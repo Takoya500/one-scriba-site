@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One Scriba</title>
+  <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+  <link href="{% static 'css/output.css' %}" rel="stylesheet">
+  <style>
+    .nav-link { transition: color .15s; }
+    .nav-link.active { color: #3E4CFF; font-weight: 600; }
+  </style>
+</head>
+
+<body class="bg-[#FAF9F6] text-[#1C1C1E] font-[Inter]">
+
+  <!-- HEADER -->
+  <header class="flex justify-between items-center px-8 py-6 border-b border-[#E5E5E7]">
+    <h1 class="text-2xl font-semibold tracking-tight">One Scriba</h1>
+
+    <nav class="flex items-center gap-8 text-xl font-medium tracking-wide">
+      <div class="flex items-center gap-6">
+        <a href="{% url 'home' %}"
+           class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+          Home
+        </a>
+
+        <a href="{% url 'magazine' %}"
+           class="nav-link {% if request.resolver_match.url_name == 'magazine' %}active{% endif %}">
+          Magazine
+        </a>
+
+        <a href="{% url 'autori' %}"
+           class="nav-link {% if request.resolver_match.url_name == 'autori' %}active{% endif %}">
+          Authors
+        </a>
+
+        <a href="{% url 'affiliazioni' %}"
+           class="nav-link {% if request.resolver_match.url_name == 'affiliazioni' %}active{% endif %}">
+          Affiliates
+        </a>
+
+        <a href="{% url 'festival' %}"
+           class="nav-link {% if request.resolver_match.url_name == 'festival' %}active{% endif %}">
+          Festival
+        </a>
+
+          <a href="{% url 'pricing' %}"
+            class="nav-link {% if request.resolver_match.url_name == 'pricing' %}active{% endif %}">
+           Pricing
+        </a>
+      </div>
+
+      <span class="text-gray-300">|</span>
+
+      <div class="flex items-center gap-6">
+        {% if request.session.supabase_user %}
+          <a href="{% url 'dashboard' %}"
+             class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+            Dashboard
+          </a>
+
+          <a href="{% url 'logout' %}" class="nav-link">
+            Log Out
+          </a>
+
+        {% else %}
+          <a href="{% url 'signup' %}"
+             class="nav-link {% if request.resolver_match.url_name == 'signup' %}active{% endif %}">
+            Sign Up
+          </a>
+
+          <a href="{% url 'login' %}"
+             class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+            Log In
+          </a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+
+  <!-- CONTENUTO -->
+  <main class="px-8 py-12">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[#E5E5E7] text-center py-8 text-sm text-gray-500">
+    © 2025 One Scriba — All rights reserved
+  </footer>
+
+  <script src="{% static 'js/scroll-animations.js' %}"></script>
+</body>
+</html>

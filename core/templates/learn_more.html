@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<section class="py-20 text-center">
+  <div class="max-w-3xl mx-auto px-6 reveal">
+    <h1 class="font-playfair text-4xl md:text-5xl font-semibold mb-6">What One Scriba Includes</h1>
+    <p class="text-2xl text-gray-600">
+      One Scriba is a professional writing platform designed for authors, screenwriters, and playwrights.
+    </p>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto px-6 pb-20 space-y-16">
+  <div>
+    <video class="w-full rounded-2xl shadow-lg" controls preload="auto" playsinline>
+      <source src="{% static 'videos/Timeline 1 audio.mp4' %}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="text-gray-600 text-xl leading-relaxed reveal">
+    <p>Every project is organized into three main formats: Screenplay, Book, and Stage Play. Each with dedicated sections tailored to the creative process. You can also create multiple draft versions of each project to manage rewrites and alternative iterations.</p>
+  </div>
+
+  <div class="space-y-8 text-gray-600 text-lg leading-relaxed reveal">
+    <section class="bg-white rounded-2xl shadow p-8 space-y-6">
+      <h2 class="font-playfair text-2xl font-semibold text-[#3E4CFF] text-center">Screenplay Projects</h2>
+      <ol class="space-y-4 list-decimal list-inside text-[#1C1C1E]">
+        <li class="font-semibold text-xl">Draft
+          <p class="font-normal text-base text-gray-600">The main writing environment with screenplay-standard formatting.</p>
+        </li>
+        <li class="font-semibold text-xl">Concept
+          <p class="font-normal text-base text-gray-600">Defines the core idea, tone, and positioning of the story.</p>
+        </li>
+        <li class="font-semibold text-xl">Story Idea
+          <p class="font-normal text-base text-gray-600">Captures premise, stakes, theme, conflict, and protagonist goals.</p>
+        </li>
+        <li class="font-semibold text-xl">Treatment
+          <p class="font-normal text-base text-gray-600">Expanded prose version of the story with key beats and sequences.</p>
+        </li>
+        <li class="font-semibold text-xl">Outline
+          <p class="font-normal text-base text-gray-600">A structural overview covering acts, sequences, and major plot points.</p>
+        </li>
+        <li class="font-semibold text-xl">Bible
+          <p class="font-normal text-base text-gray-600">World-building, continuity notes, rules, tone, and thematic elements.</p>
+        </li>
+        <li class="font-semibold text-xl">Characters
+          <p class="font-normal text-base text-gray-600">Profiles for motivations, arcs, backgrounds, and relationships.</p>
+        </li>
+        <li class="font-semibold text-xl">Timeline
+          <p class="font-normal text-base text-gray-600">A chronological map of events.</p>
+        </li>
+        <li class="font-semibold text-xl">Notes
+          <p class="font-normal text-base text-gray-600">Extra ideas, rewrites, reminders, and brainstorming.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow p-8 space-y-6">
+      <h2 class="font-playfair text-2xl font-semibold text-[#3E4CFF] text-center">Book Projects</h2>
+      <ol class="space-y-4 list-decimal list-inside text-[#1C1C1E]">
+        <li class="font-semibold text-xl">Draft
+          <p class="font-normal text-base text-gray-600">The main writing space for the manuscript.</p>
+        </li>
+        <li class="font-semibold text-xl">Story &amp; Logline
+          <p class="font-normal text-base text-gray-600">Defines the premise, theme, and narrative hook.</p>
+        </li>
+        <li class="font-semibold text-xl">Outline
+          <p class="font-normal text-base text-gray-600">A blueprint of chapters, beats, pacing, conflicts, and turning points.</p>
+        </li>
+        <li class="font-semibold text-xl">Chapter Breakdown
+          <p class="font-normal text-base text-gray-600">Scene-level planning within each chapter.</p>
+        </li>
+        <li class="font-semibold text-xl">Bible
+          <p class="font-normal text-base text-gray-600">Lore, world details, chronology, and character continuity.</p>
+        </li>
+        <li class="font-semibold text-xl">Characters
+          <p class="font-normal text-base text-gray-600">Deep character profiles, arcs, and relationships.</p>
+        </li>
+        <li class="font-semibold text-xl">Timeline
+          <p class="font-normal text-base text-gray-600">Ensures chronological coherence across chapters.</p>
+        </li>
+        <li class="font-semibold text-xl">Notes
+          <p class="font-normal text-base text-gray-600">Research, ideas, and creative notes.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow p-8 space-y-6">
+      <h2 class="font-playfair text-2xl font-semibold text-[#3E4CFF] text-center">Stage Play Projects</h2>
+      <ol class="space-y-4 list-decimal list-inside text-[#1C1C1E]">
+        <li class="font-semibold text-xl">Draft
+          <p class="font-normal text-base text-gray-600">Acts, scenes, dialogue, and stage-format writing.</p>
+        </li>
+        <li class="font-semibold text-xl">Premise &amp; Synopsis
+          <p class="font-normal text-base text-gray-600">Captures the dramatic seed and a concise narrative summary to share with collaborators.</p>
+        </li>
+        <li class="font-semibold text-xl">Outline
+          <p class="font-normal text-base text-gray-600">Structure of acts, entrances, exits, dramatic tension, and rhythm.</p>
+        </li>
+        <li class="font-semibold text-xl">Bible
+          <p class="font-normal text-base text-gray-600">Context, world, themes, and production-related notes.</p>
+        </li>
+        <li class="font-semibold text-xl">Characters
+          <p class="font-normal text-base text-gray-600">Profiles including motivations and relationships.</p>
+        </li>
+        <li class="font-semibold text-xl">Global Stage Directions
+          <p class="font-normal text-base text-gray-600">Lighting concepts, scenic design, gesture guidelines, spatial notes.</p>
+        </li>
+        <li class="font-semibold text-xl">Timeline
+          <p class="font-normal text-base text-gray-600">Chronological and spatial coherence.</p>
+        </li>
+        <li class="font-semibold text-xl">Notes
+          <p class="font-normal text-base text-gray-600">Flexible space for ideas, rewrites, and staging concepts.</p>
+        </li>
+      </ol>
+    </section>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="py-20 text-center">
+  <div class="max-w-3xl mx-auto px-6 reveal">
+    <h1 class="font-playfair text-5xl md:text-6xl font-semibold mb-6">Write. Create. Publish.</h1>
+    <p class="text-2xl text-gray-600 mb-8">
+      One Scriba is your workspace to write, collaborate, and grow as an author.
+    </p>
+    <a href="{% url 'pricing' %}" class="px-6 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition">
+      Discover One Scriba
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="max-w-6xl mx-auto py-32 px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+  <!-- Colonna testo -->
+  <div class="order-2 md:order-1 reveal">
+    <h3 class="text-3xl md:text-4xl font-playfair font-semibold mb-6 text-[#3E4CFF]">What is One Scriba</h3>
+    <p class="text-gray-600 text-xl leading-relaxed mb-4">
+      One Scriba is a professional creative writing platform designed for novelists, screenwriters, and playwrights.
+    </p>
+    <p class="text-gray-600 text-xl leading-relaxed mb-4">
+      It brings together everything you need to ideate, structure, and develop your projects, guiding you from the first spark to the final draft.
+    </p>
+    <p class="text-gray-600 text-xl leading-relaxed mb-8">
+      Built for people who live through stories, with a focused interface and a narrative soul.
+    </p>
+    <a href="/about/" class="inline-block px-6 py-3 border border-[#3E4CFF] text-[#3E4CFF] rounded-lg hover:bg-[#3E4CFF] hover:text-white transition">
+      Learn more
+    </a>
+  </div>
+
+  <!-- Colonna immagine -->
+  <div class="order-1 md:order-2 flex justify-center md:justify-end reveal">
+    <div class="w-full max-w-md">
+      <img src="{% static 'images/foto-one-scriba.png.png' %}"
+           alt="Anteprima One Scriba"
+           class="rounded-2xl shadow-xl object-cover w-full h-auto">
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD APP SECTION -->
+<section class="max-w-6xl mx-auto py-20 px-6 reveal text-center">
+  <div class="mx-auto max-w-3xl">
+    <h3 class="text-3xl md:text-4xl font-playfair font-semibold mb-6">Download the app</h3>
+    <p class="text-gray-600 text-xl leading-relaxed mb-8">
+      One Scriba is available for Windows and macOS. Download your version and start writing today.
+    </p>
+
+    <div class="flex items-center justify-center">
+      <a href="{% url 'download' %}" class="px-6 py-3 bg-[#3E4CFF] text-white rounded-lg hover:bg-[#7B8FFF] transition w-full sm:w-auto text-center">
+        Download One Scriba
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
