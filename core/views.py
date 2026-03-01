@@ -50,6 +50,18 @@ def download(request):
     return render(request, "download.html")
 
 
+def privacy_policy(request):
+    return render(request, "privacy_policy.html")
+
+
+def terms_of_service(request):
+    return render(request, "terms_of_service.html")
+
+
+def contact(request):
+    return render(request, "contact.html")
+
+
 def _get_supabase_client():
     url = os.environ.get('SUPABASE_URL') or getattr(settings, 'SUPABASE_URL', None)
     key = os.environ.get('SUPABASE_KEY') or getattr(settings, 'SUPABASE_KEY', None)
