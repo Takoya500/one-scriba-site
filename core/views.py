@@ -1,4 +1,5 @@
 import os
+import json
 from django.conf import settings
 from django.contrib import messages
 from django.http import JsonResponse
@@ -63,12 +64,16 @@ def contact(request):
 
 
 def _get_supabase_client():
-    url = os.environ.get('SUPABASE_URL') or getattr(settings, 'SUPABASE_URL', None)
-    key = os.environ.get('SUPABASE_KEY') or getattr(settings, 'SUPABASE_KEY', None)
+    from supabase import create_client
+    import os
+
+    # Server-side API calls must use service role key, never anon key.
+    url = os.environ.get("PROJECT_URL") or os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SERVICE_ROLE_KEY") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+
     if not url or not key:
         return None
-    if create_client is None:
-        return None
+
     return create_client(url, key)
 
 
@@ -139,23 +144,48 @@ def login_view(request):
             return render(request, 'login.html', {'email': email})
         try:
             res = client.auth.sign_in_with_password({"email": email, "password": password})
-            # extract access token and user
+            # Extract access token and user across supabase-py response shapes
             access_token = None
             user = None
-            if isinstance(res, dict):
-                access_token = res.get('access_token') or (res.get('data') or {}).get('access_token')
-                user = (res.get('user') or (res.get('data') or {}).get('user'))
-            else:
-                access_token = getattr(res, 'access_token', None)
-                user = getattr(res, 'user', None)
 
-            if access_token:
-                request.session['supabase_access_token'] = access_token
-            if user:
-                request.session['supabase_user'] = {'id': user.get('id') if isinstance(user, dict) else getattr(user, 'id', None), 'email': user.get('email') if isinstance(user, dict) else getattr(user, 'email', None), 'name': (user.get('user_metadata') or {}).get('full_name') if isinstance(user, dict) else None}
-            if not user and not access_token:
+            if isinstance(res, dict):
+                data = res.get('data') or {}
+                session_data = res.get('session') or data.get('session') or {}
+                access_token = (
+                    res.get('access_token')
+                    or data.get('access_token')
+                    or session_data.get('access_token')
+                )
+                user = (
+                    res.get('user')
+                    or data.get('user')
+                    or session_data.get('user')
+                )
+            else:
+                session_obj = getattr(res, 'session', None)
+                access_token = (
+                    getattr(res, 'access_token', None)
+                    or getattr(session_obj, 'access_token', None)
+                )
+                user = (
+                    getattr(res, 'user', None)
+                    or getattr(session_obj, 'user', None)
+                )
+
+            # Login is valid only if BOTH are present, to match dashboard checks
+            if not user or not access_token:
                 messages.error(request, "Credenziali non valide.")
                 return render(request, 'login.html', {'email': email})
+
+            request.session['supabase_access_token'] = access_token
+            request.session['supabase_user'] = {
+                'id': user.get('id') if isinstance(user, dict) else getattr(user, 'id', None),
+                'email': user.get('email') if isinstance(user, dict) else getattr(user, 'email', None),
+                'name': (user.get('user_metadata') or {}).get('full_name') if isinstance(user, dict) else None,
+            }
+            request.session.modified = True
+            request.session.save()
+
             return redirect('dashboard')
         except Exception as e:
             msg = str(e)
@@ -178,31 +208,199 @@ def dashboard_view(request):
     if not user or not access_token:
         return redirect('login')
 
-    # try to fetch subscription status from Supabase table `subscriptions`
-    subscription_status = 'none'
+    subscription_status = 'inactive'
+    subscription = None
     try:
         if client:
-            # Attempt to query subscriptions by user id (assumes column user_id)
-            user_id = user.get('id')
-            if user_id:
-                resp = client.table('subscriptions').select('*').eq('user_id', user_id).limit(1).execute()
-                data = None
+            email = (user.get('email') if isinstance(user, dict) else None) or ''
+            email = email.strip().lower()
+            if email:
+                query = client.table('subscriptions').select('*').eq('email', email)
+                try:
+                    query = query.order('created_at', desc=True)
+                except Exception:
+                    pass
+                resp = query.limit(1).execute()
                 if isinstance(resp, dict):
                     data = resp.get('data')
                 else:
                     data = getattr(resp, 'data', None)
-                if data:
-                    row = data[0] if isinstance(data, list) and len(data) else data
-                    # expect a column named subscription_status or status
-                    subscription_status = row.get('subscription_status') or row.get('status') or 'none'
+                if isinstance(data, list) and data:
+                    subscription = data[0]
+                elif isinstance(data, dict):
+                    subscription = data
+
+            if subscription and str(subscription.get('status', '')).strip().lower() == 'active':
+                subscription_status = 'active'
     except Exception:
-        subscription_status = 'none'
+        subscription_status = 'inactive'
+        subscription = None
 
     context = {
         'user': user,
         'subscription_status': subscription_status,
+        'subscription': subscription,
     }
     return render(request, 'dashboard.html', context)
+
+
+@require_http_methods(["GET"])
+def check_subscription_view(request):
+    user = request.session.get('supabase_user')
+    access_token = request.session.get('supabase_access_token')
+    if not user or not access_token:
+        return JsonResponse({"status": "unauthorized"}, status=401)
+
+    email = (user.get('email') if isinstance(user, dict) else None) or ''
+    email = email.strip().lower()
+    if not email:
+        return JsonResponse({"status": "inactive"})
+
+    try:
+        client = _get_supabase_client()
+        if not client:
+            return JsonResponse({"status": "error"})
+
+        query = client.table('subscriptions').select('*').eq('email', email)
+        try:
+            query = query.order('created_at', desc=True)
+        except Exception:
+            pass
+
+        resp = query.limit(1).execute()
+        if isinstance(resp, dict):
+            data = resp.get('data')
+        else:
+            data = getattr(resp, 'data', None)
+
+        subscription = None
+        if isinstance(data, list) and data:
+            subscription = data[0]
+        elif isinstance(data, dict):
+            subscription = data
+
+        if not subscription:
+            return JsonResponse({"status": "inactive"})
+
+        if str(subscription.get('status', '')).strip().lower() == 'active':
+            return JsonResponse({
+                "status": "active",
+                "renews_at": subscription.get('renews_at'),
+                "ends_at": subscription.get('ends_at'),
+            })
+
+        return JsonResponse({"status": "inactive"})
+    except Exception:
+        return JsonResponse({"status": "error"})
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def desktop_login_view(request):
+    try:
+        payload = json.loads(request.body.decode("utf-8") or "{}")
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return JsonResponse(
+            {"status": "error", "message": "Missing email or password"},
+            status=400,
+        )
+
+    if not isinstance(payload, dict):
+        return JsonResponse(
+            {"status": "error", "message": "Missing email or password"},
+            status=400,
+        )
+
+    email = str(payload.get("email", "")).strip()
+    password = str(payload.get("password", ""))
+
+    if not email or not password:
+        return JsonResponse(
+            {"status": "error", "message": "Missing email or password"},
+            status=400,
+        )
+
+    try:
+        client = _get_supabase_client()
+        if not client:
+            return JsonResponse({"status": "error"}, status=500)
+
+        try:
+            auth_response = client.auth.sign_in_with_password({"email": email, "password": password})
+        except Exception as exc:
+            message = str(exc).lower()
+            if any(token in message for token in ["invalid", "credential", "unauthorized", "login"]):
+                return JsonResponse(
+                    {"status": "unauthorized", "message": "Invalid credentials"},
+                    status=401,
+                )
+            return JsonResponse({"status": "error"}, status=500)
+
+        auth_user = None
+        if isinstance(auth_response, dict):
+            data = auth_response.get("data") or {}
+            session_data = auth_response.get("session") or data.get("session") or {}
+            auth_user = auth_response.get("user") or data.get("user") or session_data.get("user")
+        else:
+            session_obj = getattr(auth_response, "session", None)
+            auth_user = getattr(auth_response, "user", None) or getattr(session_obj, "user", None)
+
+        user_email = None
+        if isinstance(auth_user, dict):
+            user_email = auth_user.get("email")
+        else:
+            user_email = getattr(auth_user, "email", None)
+
+        normalized_email = (user_email or email).strip().lower()
+        if not normalized_email:
+            return JsonResponse(
+                {"status": "unauthorized", "message": "Invalid credentials"},
+                status=401,
+            )
+
+        db_client = _get_supabase_client()
+        if not db_client:
+            return JsonResponse({"status": "error"}, status=500)
+
+        query = db_client.table("subscriptions").select("*").eq("email", normalized_email)
+        try:
+            query = query.order("created_at", desc=True)
+        except Exception:
+            pass
+
+        response = query.limit(1).execute()
+        if isinstance(response, dict):
+            data = response.get("data")
+        else:
+            data = getattr(response, "data", None)
+
+        subscription = None
+        if isinstance(data, list) and data:
+            subscription = data[0]
+        elif isinstance(data, dict):
+            subscription = data
+
+        if subscription and str(subscription.get("status", "")).strip().lower() == "active":
+            return JsonResponse(
+                {
+                    "status": "active",
+                    "email": normalized_email,
+                    "renews_at": subscription.get("renews_at"),
+                    "ends_at": subscription.get("ends_at"),
+                    "offline_valid_days": 30,
+                },
+                status=200,
+            )
+
+        return JsonResponse(
+            {
+                "status": "inactive",
+                "email": normalized_email,
+            },
+            status=200,
+        )
+    except Exception:
+        return JsonResponse({"status": "error"}, status=500)
 
 
 @csrf_exempt

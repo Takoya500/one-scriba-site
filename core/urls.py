@@ -19,5 +19,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
+    path('api/desktop-login/', views.desktop_login_view, name='desktop_login'),
+    path('api/check-subscription/', views.check_subscription_view, name='check_subscription'),
     path('api/lemonsqueezy/webhook/', views.lemonsqueezy_webhook, name='lemonsqueezy_webhook'),
 ]

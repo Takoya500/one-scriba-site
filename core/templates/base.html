@@ -55,7 +55,7 @@
       <span class="text-gray-300">|</span>
 
       <div class="flex items-center gap-6">
-        {% if request.session.supabase_user %}
+        {% if request.session.supabase_user and request.session.supabase_access_token %}
           <a href="{% url 'dashboard' %}"
              class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
             Dashboard
