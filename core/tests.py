@@ -51,9 +51,9 @@ class DesktopLoginViewTests(TestCase):
 		)
 		self.assertEqual(response.status_code, 400)
 
-	@patch("core.views._get_supabase_client")
-	def test_invalid_credentials_returns_401(self, mock_client):
-		mock_client.return_value = _FakeClient(
+	@patch("core.views._get_supabase_auth_client")
+	def test_invalid_credentials_returns_401(self, mock_auth_client):
+		mock_auth_client.return_value = _FakeClient(
 			sign_in_exception=Exception("Invalid login credentials")
 		)
 
@@ -66,9 +66,13 @@ class DesktopLoginViewTests(TestCase):
 		self.assertEqual(response.status_code, 401)
 		self.assertEqual(response.json()["status"], "unauthorized")
 
-	@patch("core.views._get_supabase_client")
-	def test_valid_login_with_active_subscription_returns_200_active(self, mock_client):
-		mock_client.return_value = _FakeClient(
+	@patch("core.views._get_supabase_admin_client")
+	@patch("core.views._get_supabase_auth_client")
+	def test_valid_login_with_active_subscription_returns_200_active(self, mock_auth_client, mock_admin_client):
+		mock_auth_client.return_value = _FakeClient(
+			sign_in_result={"user": {"email": "User@Example.com"}},
+		)
+		mock_admin_client.return_value = _FakeClient(
 			sign_in_result={"user": {"email": "User@Example.com"}},
 			subscription_data=[
 				{
@@ -91,9 +95,13 @@ class DesktopLoginViewTests(TestCase):
 		self.assertEqual(body["email"], "user@example.com")
 		self.assertEqual(body["offline_valid_days"], 30)
 
-	@patch("core.views._get_supabase_client")
-	def test_valid_login_without_subscription_returns_200_inactive(self, mock_client):
-		mock_client.return_value = _FakeClient(
+	@patch("core.views._get_supabase_admin_client")
+	@patch("core.views._get_supabase_auth_client")
+	def test_valid_login_without_subscription_returns_200_inactive(self, mock_auth_client, mock_admin_client):
+		mock_auth_client.return_value = _FakeClient(
+			sign_in_result={"user": {"email": "user@example.com"}},
+		)
+		mock_admin_client.return_value = _FakeClient(
 			sign_in_result={"user": {"email": "user@example.com"}},
 			subscription_data=[],
 		)

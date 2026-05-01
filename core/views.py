@@ -1,6 +1,5 @@
 import os
 import json
-from django.conf import settings
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -63,11 +62,23 @@ def contact(request):
     return render(request, "contact.html")
 
 
-def _get_supabase_client():
+def _get_supabase_auth_client():
     from supabase import create_client
     import os
 
-    # Server-side API calls must use service role key, never anon key.
+    url = os.environ.get("PROJECT_URL") or os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_KEY")
+
+    if not url or not key:
+        return None
+
+    return create_client(url, key)
+
+
+def _get_supabase_admin_client():
+    from supabase import create_client
+    import os
+
     url = os.environ.get("PROJECT_URL") or os.environ.get("SUPABASE_URL")
     key = os.environ.get("SERVICE_ROLE_KEY") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 
@@ -80,7 +91,7 @@ def _get_supabase_client():
 @require_http_methods(["GET", "POST"])
 def signup_view(request):
     """Signup using Supabase Auth. Stores minimal user info and access token in session on success."""
-    client = _get_supabase_client()
+    client = _get_supabase_auth_client()
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()
         email = request.POST.get('email', '').strip()
@@ -135,7 +146,7 @@ def signup_view(request):
 
 @require_http_methods(["GET", "POST"])
 def login_view(request):
-    client = _get_supabase_client()
+    client = _get_supabase_auth_client()
     if request.method == 'POST':
         email = request.POST.get('email', '').strip()
         password = request.POST.get('password', '')
@@ -202,7 +213,7 @@ def logout_view(request):
 
 
 def dashboard_view(request):
-    client = _get_supabase_client()
+    client = _get_supabase_admin_client()
     user = request.session.get('supabase_user')
     access_token = request.session.get('supabase_access_token')
     if not user or not access_token:
@@ -257,7 +268,7 @@ def check_subscription_view(request):
         return JsonResponse({"status": "inactive"})
 
     try:
-        client = _get_supabase_client()
+        client = _get_supabase_admin_client()
         if not client:
             return JsonResponse({"status": "error"})
 
@@ -321,7 +332,7 @@ def desktop_login_view(request):
         )
 
     try:
-        client = _get_supabase_client()
+        client = _get_supabase_auth_client()
         if not client:
             return JsonResponse({"status": "error"}, status=500)
 
@@ -358,7 +369,7 @@ def desktop_login_view(request):
                 status=401,
             )
 
-        db_client = _get_supabase_client()
+        db_client = _get_supabase_admin_client()
         if not db_client:
             return JsonResponse({"status": "error"}, status=500)
 
