@@ -10,17 +10,68 @@
   <style>
     .nav-link { transition: color .15s; }
     .nav-link.active { color: #3E4CFF; font-weight: 600; }
+    .navbar-layout {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .navbar-left { justify-self: start; }
+    .navbar-center {
+      justify-self: center;
+      font-size: 1.35rem;
+    }
+    .navbar-right { justify-self: end; }
+
+    @media (max-width: 768px) {
+      html,
+      body {
+        overflow-x: hidden;
+      }
+
+      .navbar-layout {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+
+      .navbar-left,
+      .navbar-center,
+      .navbar-right {
+        justify-self: stretch;
+      }
+
+      .navbar-center {
+        font-size: 1rem;
+        gap: 1rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+        padding-bottom: 0.25rem;
+      }
+
+      .navbar-center::-webkit-scrollbar {
+        display: none;
+      }
+
+      .navbar-right {
+        font-size: 1rem;
+        gap: 1rem;
+        justify-content: flex-end;
+        white-space: nowrap;
+      }
+    }
   </style>
 </head>
 
 <body class="bg-[#FAF9F6] text-[#1C1C1E] font-[Inter]">
 
   <!-- HEADER -->
-  <header class="flex justify-between items-center px-8 py-6 border-b border-[#E5E5E7]">
-    <h1 class="text-2xl font-semibold tracking-tight">One Scriba</h1>
+  <header class="px-8 py-6 border-b border-[#E5E5E7]">
+    <div class="navbar-layout">
+      <h1 class="navbar-left text-2xl font-semibold tracking-tight">One Scriba</h1>
 
-    <nav class="flex items-center gap-8 text-xl font-medium tracking-wide">
-      <div class="flex items-center gap-6">
+      <nav class="navbar-center flex items-center gap-10 text-xl font-medium tracking-wide">
         <a href="{% url 'home' %}"
            class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
           Home
@@ -50,11 +101,9 @@
             class="nav-link {% if request.resolver_match.url_name == 'pricing' %}active{% endif %}">
            Pricing
         </a>
-      </div>
+        </nav>
 
-      <span class="text-gray-300">|</span>
-
-      <div class="flex items-center gap-6">
+        <div class="navbar-right flex items-center gap-6 text-xl font-medium tracking-wide">
         {% if request.session.supabase_user and request.session.supabase_access_token %}
           <a href="{% url 'dashboard' %}"
              class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
@@ -77,7 +126,7 @@
           </a>
         {% endif %}
       </div>
-    </nav>
+    </div>
   </header>
 
   <!-- CONTENUTO -->
@@ -94,7 +143,7 @@
       <span class="text-gray-300">|</span>
       <a href="{% url 'contact' %}" class="nav-link">Contact</a>
     </div>
-    © 2025 One Scriba — All rights reserved
+    © 2026 One Scriba — All rights reserved
   </footer>
 
   <script src="{% static 'js/scroll-animations.js' %}"></script>
