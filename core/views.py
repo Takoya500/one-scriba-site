@@ -221,6 +221,7 @@ def dashboard_view(request):
 
     subscription_status = 'inactive'
     subscription = None
+    customer_portal_url = None
     try:
         if client:
             email = (user.get('email') if isinstance(user, dict) else None) or ''
@@ -243,14 +244,21 @@ def dashboard_view(request):
 
             if subscription and str(subscription.get('status', '')).strip().lower() == 'active':
                 subscription_status = 'active'
+                raw_payload = subscription.get('raw_payload') if isinstance(subscription, dict) else None
+                if isinstance(raw_payload, dict):
+                    customer_portal_url = (
+                        ((raw_payload.get('data') or {}).get('attributes') or {}).get('urls') or {}
+                    ).get('customer_portal')
     except Exception:
         subscription_status = 'inactive'
         subscription = None
+        customer_portal_url = None
 
     context = {
         'user': user,
         'subscription_status': subscription_status,
         'subscription': subscription,
+        'customer_portal_url': customer_portal_url,
     }
     return render(request, 'dashboard.html', context)
 
